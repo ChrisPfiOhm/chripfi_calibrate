@@ -267,12 +267,10 @@ int main(int argc, char* argv[])
         vector<Point2f> pointBuf;
 
         SimpleBlobDetector::Params params;
-//        params.maxArea = 10e3;
-//        params.minArea = 10;
-//        params.minDistBetweenBlobs = 20;
-        params.filterByColor = true;
-        params.minThreshold = 20.0;
-        params.maxThreshold = 200.0;
+        params.filterByArea = true;
+        params.maxArea = 100;
+        params.minArea = 2;
+        params.minDistBetweenBlobs = 2;
         Ptr<FeatureDetector> blobDetector = new SimpleBlobDetector(params);
 
         bool found;
@@ -311,10 +309,12 @@ int main(int argc, char* argv[])
                     prevTimestamp = clock();
                     blinkOutput = s.inputCapture.isOpened();
                 }
-                std::string str = "awa.bmp";
+                static int wak = 0;
+                stringstream ss;
+                ss << "awa_"<< wak++ << ".bmp";
                 // Draw the corners.
                 drawChessboardCorners( view, s.boardSize, Mat(pointBuf), found );
-                imwrite(str.c_str(), view);
+                imwrite(ss.str().c_str(), view);
         }
 
         //----------------------------- Output Text ------------------------------------------------
@@ -346,6 +346,7 @@ int main(int argc, char* argv[])
 
         //------------------------------ Show image and check for input commands -------------------
         imshow("Image View", view);
+
         char key = (char)waitKey(s.inputCapture.isOpened() ? 50 : s.delay);
 
         if( key  == ESC_KEY )
@@ -375,6 +376,10 @@ int main(int argc, char* argv[])
             if(view.empty())
                 continue;
             remap(view, rview, map1, map2, INTER_LINEAR);
+            static int wak = 0;
+            stringstream ss;
+            ss << "undist_"<< wak++ << ".bmp";
+            imwrite(ss.str().c_str(), rview);
             imshow("Image View", rview);
             char c = (char)waitKey();
             if( c  == ESC_KEY || c == 'q' || c == 'Q' )
