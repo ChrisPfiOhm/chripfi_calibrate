@@ -1,18 +1,11 @@
 <?xml version="1.0"?>
 <opencv_storage>
 <images>
-images/circles/1.bmp
-images/circles/2.bmp
-images/circles/3.bmp
-images/circles/4.bmp
-images/circles/5.bmp
-images/circles/6.bmp
-images/circles/7.bmp
-images/circles/8.bmp
-images/circles/9.bmp
-images/circles/10.bmp
-images/circles/11.bmp
-images/circles/12.bmp
+images/xtion/1.png
+images/xtion/2.png
+images/xtion/3.png
+images/xtion/4.png
+images/xtion/5.png
 </images>
 </opencv_storage>
 
